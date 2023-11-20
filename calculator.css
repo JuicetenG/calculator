@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator-container {
+    border: 2px solid black;
+    width: 20em;
+    height: 30em;
+    display: flex;
+    flex-direction: column;
+}

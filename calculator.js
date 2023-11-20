@@ -33,6 +33,6 @@ function operate(a, b, operator){
             divide(a, b);
             break;
     }
+} 
 
-}
 
