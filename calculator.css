@@ -7,7 +7,32 @@ body {
 .calculator-container {
     border: 2px solid black;
     width: 20em;
-    height: 30em;
+    height: 32em;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+#calculatorDisplay {
+    border: 2px solid black;
+    height: 4em;
+    width: 18em;
+    margin: 4px;
+    margin-top: 14px;
+}
+
+.row0, .row1, .row2, .row3, .row4 {
+    display: flex;
+    flex: 1 1 auto;
+    width: 18em;
+    justify-content: center;
+}
+
+button {
+    flex-grow: 1;
+    margin: 0.1em;
+} 
+
+.zero {
+    flex-grow: 2;
 }
