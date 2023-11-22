@@ -11,14 +11,21 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 14px;
+    background-color: darkcyan;
 }
 
 #calculatorDisplay {
     border: 2px solid black;
-    height: 4em;
-    width: 18em;
-    margin: 4px;
-    margin-top: 14px;
+    height: 1.5em;
+    width: 4.5em;
+    margin: 14px;
+    background-color: lightgoldenrodyellow;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 60px;
+    padding-right: .25em;
 }
 
 .row0, .row1, .row2, .row3, .row4 {
@@ -26,13 +33,28 @@ body {
     flex: 1 1 auto;
     width: 18em;
     justify-content: center;
+    align-items: space-between;
 }
 
 button {
     flex-grow: 1;
     margin: 0.1em;
+    width: 4em;
+    background-color: paleturquoise;
 } 
 
 .zero {
-    flex-grow: 2;
+    flex-grow: 6;
+}
+
+.row0 button {
+    background-color: azure;
+}
+
+.right-column {
+    background-color: tomato;
+}
+
+#divideButton {
+    background-color: tomato;
 }
