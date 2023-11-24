@@ -1,6 +1,10 @@
-let firstNumber; 
-let secondNumber;
-let operator;
+let firstNumber = null; 
+let secondNumber = null;
+let operator = null;
+
+const display = document.querySelector('#calculatorDisplay');
+const calculatorButtons = document.querySelectorAll('button');
+const clearButton = document.querySelector('#clear');
 
 function add(a, b){
     return a + b;
@@ -34,5 +38,15 @@ function operate(a, b, operator){
             break;
     }
 } 
+
+calculatorButtons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        display.textContent += e.target.value;
+    });
+});
+
+clearButton.addEventListener('click', () =>{
+    display.textContent = "";
+});
 
 
