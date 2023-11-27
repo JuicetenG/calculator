@@ -3,10 +3,10 @@ let secondNumber = null;
 let operator = null;
 let displayValue = '';
 let operatorFlag = false;
-let calculatedValue = 0; 
+let calculatedValue = 0;
 
 const display = document.querySelector('#calculatorDisplay');
-const calculatorButtons = document.querySelectorAll('button');
+const numberButtons = document.querySelectorAll('.number');
 const clearButton = document.querySelector('#clear');
 const equalsButton = document.querySelector('#equals');
 const operatorButtons = document.querySelectorAll('.operator');
@@ -44,52 +44,49 @@ function operate(a, b, operator){
     }
 } 
 
-function calculate(){
-    if(operatorFlag === false){
-        firstNumber = display.textContent;
-    } else {
-        secondNumber = display.textContent;
-    }
-    if(secondNumber){
-        displayValue = operate(firstNumber, secondNumber);
-    }
-}
-
 function updateDisplay(e){
+    displayValue += e.target.value;
     if(operatorFlag === false){
-        displayValue += e.target.value;
-        firstNumber = displayValue;
-    } else {
-        displayValue += e.target.Value;
-        secondNumber = displayValue;
+        firstNumber = Number(displayValue);
     }
+    else if(operatorFlag === true){
+        secondNumber = Number(displayValue);
+    } 
     display.textContent = displayValue;
 }
 
-clearButton.addEventListener('click', () => {
+function displayResult(){
+    display.textContent = displayValue;
+}
+
+clearButton.addEventListener('click', (e) => {
     displayValue = '';
     firstNumber = null;
     secondNumber = null;
     operatorFlag = false;
+    updateDisplay(e);
 });
 
 equalsButton.addEventListener('click', () => {
+    calculatedValue = operate(firstNumber, secondNumber, operator);
     displayValue = calculatedValue;
-    calculate();
-    operatorFlag = false;  
-    console.log(firstNumber);
+    operatorFlag = false; 
+    operatorIncrement = 0;
+    displayResult();
 });
 
 operatorButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
-        operatorFlag = true; 
-        console.log(operatorFlag);
+        displayValue = '';
+        operatorFlag = true;
+        operator = e.target.value;
     });
 });
 
-calculatorButtons.forEach((button) => {
+numberButtons.forEach((button) => {
     button.addEventListener('click', (e) => { 
         updateDisplay(e);
+        console.log(firstNumber, secondNumber, displayValue);
     }); 
 });
 
