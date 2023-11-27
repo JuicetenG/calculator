@@ -46,13 +46,12 @@ function updateDisplay(e){
     display.textContent = displayValue;
 }
 
-calculatorButtons.forEach((button) => {
-   button.addEventListener('click', (e) => { updateDisplay(e)
-        //display.textContent += e.target.value;
-    }); 
+clearButton.addEventListener('click', () => displayValue = '');
 
+calculatorButtons.forEach((button) => {
+   button.addEventListener('click', (e) => { updateDisplay(e)}); 
 });
 
-clearButton.addEventListener('click', () => displayValue = '');
+
 
 
