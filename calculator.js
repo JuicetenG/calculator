@@ -1,6 +1,8 @@
 let firstNumber = null; 
 let secondNumber = null;
 let operator = null;
+let displayValue = '';
+let operateFlag = false; 
 
 const display = document.querySelector('#calculatorDisplay');
 const calculatorButtons = document.querySelectorAll('button');
@@ -39,14 +41,18 @@ function operate(a, b, operator){
     }
 } 
 
+function updateDisplay(e){
+    displayValue += e.target.value;
+    display.textContent = displayValue;
+}
+
 calculatorButtons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        display.textContent += e.target.value;
-    });
+   button.addEventListener('click', (e) => { updateDisplay(e)
+        //display.textContent += e.target.value;
+    }); 
+
 });
 
-clearButton.addEventListener('click', () =>{
-    display.textContent = "";
-});
+clearButton.addEventListener('click', () => displayValue = '');
 
 
