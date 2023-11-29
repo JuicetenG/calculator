@@ -45,6 +45,8 @@ function operate(a, b, operator){
 } 
 
 function updateDisplay(e){
+    if(e.target.value === '.' && displayValue.includes('.')) return;
+    
     displayValue += e.target.value;
     if(operatorFlag === false){
         firstNumber = Number(displayValue);
@@ -78,7 +80,9 @@ clearButton.addEventListener('click', (e) => {
 });
 
 equalsButton.addEventListener('click', () => {
-    callOperate();
+    if(firstNumber && secondNumber !== null){
+        callOperate();
+    }
 });
 
 operatorButtons.forEach((button) => {
@@ -96,7 +100,6 @@ operatorButtons.forEach((button) => {
 numberButtons.forEach((button) => {
     button.addEventListener('click', (e) => { 
         updateDisplay(e);
-        console.log(firstNumber, secondNumber, calculatedValue, displayValue, operator);
     }); 
 });
 
