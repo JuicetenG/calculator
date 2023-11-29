@@ -53,6 +53,14 @@ function updateDisplay(e){
         secondNumber = Number(displayValue);
     } 
     display.textContent = displayValue;
+} 
+
+function callOperate(){
+    calculatedValue = operate(firstNumber, secondNumber, operator);
+    firstNumber = calculatedValue;
+    secondNumber = null;
+    displayResult();
+    console.log(firstNumber, secondNumber, calculatedValue, displayValue, operator);
 }
 
 function displayResult(){
@@ -63,39 +71,32 @@ clearButton.addEventListener('click', (e) => {
     displayValue = '';
     firstNumber = null;
     secondNumber = null;
+    calculatedValue = null;
+    operator = null;
     operatorFlag = false;
     updateDisplay(e);
 });
 
 equalsButton.addEventListener('click', () => {
-    calculatedValue = operate(firstNumber, secondNumber, operator);
-    displayValue = calculatedValue;
-    operatorFlag = false; 
-    operatorIncrement = 0;
-    displayResult();
-    console.log(firstNumber, secondNumber, displayValue);
+    callOperate();
 });
 
 operatorButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
+        if(secondNumber !== null){
+            callOperate();
+        }
+        
         displayValue = '';
         operatorFlag = true;
         operator = e.target.value;
-
-        if(secondNumber !== null){
-            console.log(firstNumber, secondNumber, calculatedValue, displayValue);
-            calculatedValue = operate(firstNumber, secondNumber, operator);
-            firstNumber = calculatedValue;
-            displayValue = '';
-            displayResult();
-        }
     });
 });
 
 numberButtons.forEach((button) => {
     button.addEventListener('click', (e) => { 
         updateDisplay(e);
-        console.log(firstNumber, secondNumber, displayValue);
+        console.log(firstNumber, secondNumber, calculatedValue, displayValue, operator);
     }); 
 });
 
