@@ -10,6 +10,7 @@ const numberButtons = document.querySelectorAll('.number');
 const clearButton = document.querySelector('#clear');
 const equalsButton = document.querySelector('#equals');
 const operatorButtons = document.querySelectorAll('.operator');
+const backButton = document.querySelector('#back');
 
 function add(a, b){
     return a + b;
@@ -46,43 +47,73 @@ function operate(a, b, operator){
 
 function updateDisplay(e){
     if(e.target.value === '.' && displayValue.includes('.')) return;
+    /*if(e.target.value === 'back'){
+        back();
+        setNumber(); 
+        displayResult();
+        return;
+    } */
     
     displayValue += e.target.value;
-    if(operatorFlag === false){
-        firstNumber = Number(displayValue);
-    }
-    else if(operatorFlag === true){
-        secondNumber = Number(displayValue);
-    } 
-    display.textContent = displayValue;
+    setNumber();
+    displayResult();
 } 
 
-function callOperate(){
-    calculatedValue = operate(firstNumber, secondNumber, operator);
-    firstNumber = calculatedValue;
-    secondNumber = null;
+function setNumber(){
+    if(operator === null){
+        firstNumber = Number(displayValue);
+    }
+    else secondNumber = Number(displayValue);
+}
+
+function back(){
+    if(operator !== null && secondNumber === null){
+        operator = null;
+        displayValue = firstNumber;
+    }
+    
+    displayValue = displayValue.toString().slice(0, -1);
+    setNumber();
     displayResult();
-    console.log(firstNumber, secondNumber, calculatedValue, displayValue, operator);
+    console.log(firstNumber, secondNumber, displayValue);
 }
 
-function displayResult(){
-    display.textContent = calculatedValue;
-}
-
-clearButton.addEventListener('click', (e) => {
+function clear(e){
     displayValue = '';
     firstNumber = null;
     secondNumber = null;
-    calculatedValue = null;
     operator = null;
     operatorFlag = false;
     updateDisplay(e);
+}
+
+function callOperate(){
+    if((firstNumber || secondNumber || operator) === null) return;
+    displayValue = operate(firstNumber, secondNumber, operator);
+    firstNumber = displayValue;
+    secondNumber = null;
+    operator = null;
+    setNumber();
+    displayResult();
+}
+
+function displayResult(){
+    display.textContent = displayValue;
+}
+
+clearButton.addEventListener('click', (e) => {
+    clear(e);
 });
 
+backButton.addEventListener('click', () => {
+    back();
+})
+
 equalsButton.addEventListener('click', () => {
-    if(firstNumber && secondNumber !== null){
+    if(secondNumber !== null){
         callOperate();
     }
+    console.log(firstNumber, secondNumber, displayValue);
 });
 
 operatorButtons.forEach((button) => {
@@ -90,16 +121,16 @@ operatorButtons.forEach((button) => {
         if(secondNumber !== null){
             callOperate();
         }
-        
         displayValue = '';
-        operatorFlag = true;
         operator = e.target.value;
+        console.log(firstNumber, secondNumber, displayValue);
     });
 });
 
 numberButtons.forEach((button) => {
     button.addEventListener('click', (e) => { 
         updateDisplay(e);
+        console.log(firstNumber, secondNumber, displayValue);
     }); 
 });
 
