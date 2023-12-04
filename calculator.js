@@ -47,12 +47,12 @@ function operate(a, b, operator){
 
 function updateDisplay(e){
     if(e.target.value === '.' && displayValue.includes('.')) return;
-    /*if(e.target.value === 'back'){
+    if(e.target.value === 'back'){
         back();
         setNumber(); 
         displayResult();
         return;
-    } */
+    } 
     
     displayValue += e.target.value;
     setNumber();
@@ -105,8 +105,8 @@ clearButton.addEventListener('click', (e) => {
     clear(e);
 });
 
-backButton.addEventListener('click', () => {
-    back();
+backButton.addEventListener('click', (e) => {
+    updateDisplay(e);
 })
 
 equalsButton.addEventListener('click', () => {
