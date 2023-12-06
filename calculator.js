@@ -47,19 +47,13 @@ function operate(a, b, operator){
 
 function updateDisplay(e){
     if(e.target.value === '.' && displayValue.includes('.')) return;
-    if(e.target.value === 'back'){
-        back();
-        setNumber(); 
-        displayResult();
-        return;
-    } 
-    
+
     displayValue += e.target.value;
-    setNumber();
+    setNumbers();
     displayResult();
 } 
 
-function setNumber(){
+function setNumbers(){
     if(operator === null){
         firstNumber = Number(displayValue);
     }
@@ -73,7 +67,7 @@ function back(){
     }
     
     displayValue = displayValue.toString().slice(0, -1);
-    setNumber();
+    setNumbers();
     displayResult();
     console.log(firstNumber, secondNumber, displayValue);
 }
@@ -89,11 +83,17 @@ function clear(e){
 
 function callOperate(){
     if((firstNumber || secondNumber || operator) === null) return;
+    
     displayValue = operate(firstNumber, secondNumber, operator);
     firstNumber = displayValue;
     secondNumber = null;
     operator = null;
-    setNumber();
+    setNumbers();
+
+    if(displayValue.includes('.')){
+        displayValue = displayValue.toFixed(2);
+    }
+    
     displayResult();
 }
 
@@ -105,8 +105,8 @@ clearButton.addEventListener('click', (e) => {
     clear(e);
 });
 
-backButton.addEventListener('click', (e) => {
-    updateDisplay(e);
+backButton.addEventListener('click', () => {
+    back();
 })
 
 equalsButton.addEventListener('click', () => {
