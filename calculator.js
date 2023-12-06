@@ -2,8 +2,6 @@ let firstNumber = null;
 let secondNumber = null;
 let operator = null;
 let displayValue = '';
-let operatorFlag = false;
-let calculatedValue = 0;
 
 const display = document.querySelector('#calculatorDisplay');
 const numberButtons = document.querySelectorAll('.number');
@@ -85,15 +83,15 @@ function callOperate(){
     if((firstNumber || secondNumber || operator) === null) return;
     
     displayValue = operate(firstNumber, secondNumber, operator);
+    
+    if(displayValue.toString().includes('.')){
+        displayValue = displayValue.toFixed(2);
+    }
+
     firstNumber = displayValue;
     secondNumber = null;
     operator = null;
     setNumbers();
-
-    if(displayValue.includes('.')){
-        displayValue = displayValue.toFixed(2);
-    }
-    
     displayResult();
 }
 
