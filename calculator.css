@@ -19,16 +19,19 @@ body {
 #calculatorDisplay {
     border: 2px solid lightgoldenrodyellow;
     border-radius: 6px;
-    height: 1.5em;
-    width: 4.5em;
-    margin: 14px;
+    height: 2.25em;
+    width: 6.75em;
+    margin: 18px;
     background-color: lightgoldenrodyellow;
     display: flex;
+    flex-direction: column;
     align-items: flex-end;
-    justify-content: flex-end;
-    font-size: 60px;
-    padding-right: .25em;
+    justify-content: flex-start;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
     overflow: hidden;
+    font-size: 40px;
 }
 
 .row0, .row1, .row2, .row3, .row4 {
@@ -48,7 +51,7 @@ button {
 } 
 
 .zero {
-    flex-grow: 6;
+    flex-grow: 6; 
 }
 
 .row0 button {
