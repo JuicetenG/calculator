@@ -53,6 +53,7 @@ button {
 
 #equals {
     flex: auto;
+    background-color: azure;
 }
 
 #clear {
