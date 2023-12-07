@@ -6,7 +6,7 @@ body {
     font-family: 'VT323';
     background-image: url(images/super-mario-land.jpg);
     background-size: contain;
-    opacity: 90%;
+    opacity: 95%;
 }
 
 body, button {
