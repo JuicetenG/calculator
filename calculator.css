@@ -5,7 +5,7 @@ body {
     justify-content: center;
     font-family: 'VT323';
     background-image: url(images/super-mario-land.jpg);
-    background-size: contain;
+    background-size: cover;
     opacity: 95%;
 }
 
@@ -38,12 +38,27 @@ body, button {
     margin: 18px;
     background-color: #fed1b0;
     padding: 10px;
-    font-size: 80px;
+    font-size: 40px;
     font-weight: 1;
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: center;
+    flex-direction: column;
     overflow: hidden;
+}
+
+#displayTop {
+    flex: 1;
+    margin: 0;
+    width: 100%;
+    text-align: right;
+}
+
+#displayBottom {
+    flex: 1;
+    margin: 0;
+    width: 100%;
+    text-align: right;
 }
 
 .row0, .row1, .row2, .row3, .row4 {
