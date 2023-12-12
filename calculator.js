@@ -55,10 +55,10 @@ function updateDisplay(e){
 } 
 
 function updateDisplayTop(e) {
-    if(displayValueTop.toString().charAt(displayValueTop.length - 1) === '/') return;
-    if(displayValueTop.toString().charAt(displayValueTop.length - 1) === '*') return;
-    if(displayValueTop.toString().charAt(displayValueTop.length - 1) === '-') return;
-    if(displayValueTop.toString().charAt(displayValueTop.length - 1) === '+') return;
+    if(displayValueTop.charAt(displayValueTop.length - 1) === '/') return;
+    if(displayValueTop.charAt(displayValueTop.length - 1) === '*') return;
+    if(displayValueTop.charAt(displayValueTop.length - 1) === '-') return;
+    if(displayValueTop.charAt(displayValueTop.length - 1) === '+') return;
     displayValueTop += e.target.value;
     displayValue = '';
     displayResult();
