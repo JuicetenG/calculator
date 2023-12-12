@@ -2,10 +2,8 @@ let firstNumber = null;
 let secondNumber = null;
 let operator = null;
 let displayValue = '';
-let displayValueTop = '';
 
-const displayBottom = document.querySelector('#displayBottom');
-const displayTop = document.querySelector("#displayTop");
+const display = document.querySelector('#calculatorDisplay');
 const numberButtons = document.querySelectorAll('.number');
 const clearButton = document.querySelector('#clear');
 const equalsButton = document.querySelector('#equals');
@@ -47,19 +45,11 @@ function operate(a, b, operator){
 
 function updateDisplay(e){
     if(e.target.value === '.' && displayValue.includes('.')) return;
-    
+
     displayValue += e.target.value;
-    displayValueTop += e.target.value;
     setNumbers();
     displayResult();
 } 
-
-function updateDisplayTop(e) {
-    displayValueTop += e.target.value;
-    displayValue = '';
-    displayResult();
-    displayResultTop();
-}
 
 function setNumbers(){
     if(operator === null){
@@ -69,34 +59,31 @@ function setNumbers(){
 }
 
 function back(){
-    if(operator !== null && (secondNumber === null || secondNumber === 0)){
-        return;
+    if(operator !== null && secondNumber === null){
+        operator = null;
+        displayValue = firstNumber;
     }
     
     displayValue = displayValue.toString().slice(0, -1);
-    displayValueTop = displayValueTop.slice(0, -1);
     setNumbers();
     displayResult();
     console.log(firstNumber, secondNumber, displayValue);
 }
 
-function clear(){
+function clear(e){
     displayValue = '';
-    displayValueTop = '';
     firstNumber = null;
     secondNumber = null;
     operator = null;
-    displayResult();
+    operatorFlag = false;
+    updateDisplay(e);
 }
 
 function callOperate(){
     if((firstNumber || secondNumber || operator) === null) return;
-    if(isNaN(firstNumber) || isNaN(secondNumber)){
-        clear();
-        return;
-    }
-
+    
     displayValue = operate(firstNumber, secondNumber, operator);
+    
     if(displayValue.toString().includes('.')){
         displayValue = displayValue.toFixed(2);
     }
@@ -109,12 +96,7 @@ function callOperate(){
 }
 
 function displayResult(){
-    displayBottom.textContent = displayValue;
-    displayTop.textContent = displayValueTop;
-}
-
-function displayResultTop(){
-    displayTop.textContent = displayValueTop;
+    display.textContent = displayValue;
 }
 
 clearButton.addEventListener('click', (e) => {
@@ -123,8 +105,6 @@ clearButton.addEventListener('click', (e) => {
 
 backButton.addEventListener('click', () => {
     back();
-    console.log(firstNumber, secondNumber, displayValue, operator);
-
 })
 
 equalsButton.addEventListener('click', () => {
@@ -141,15 +121,14 @@ operatorButtons.forEach((button) => {
         }
         displayValue = '';
         operator = e.target.value;
-        updateDisplayTop(e);
-        console.log(firstNumber, secondNumber, displayValue, operator);
+        console.log(firstNumber, secondNumber, displayValue);
     });
 });
 
 numberButtons.forEach((button) => {
     button.addEventListener('click', (e) => { 
         updateDisplay(e);
-        console.log(firstNumber, secondNumber, displayValue, operator);
+        console.log(firstNumber, secondNumber, displayValue);
     }); 
 });
 
