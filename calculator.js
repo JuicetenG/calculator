@@ -60,14 +60,13 @@ function setNumbers(){
 
 function back(){
     if(operator !== null && secondNumber === null){
-        operator = null;
-        displayValue = firstNumber;
+        return;
     }
     
     displayValue = displayValue.toString().slice(0, -1);
     setNumbers();
     displayResult();
-    console.log(firstNumber, secondNumber, displayValue);
+    console.log(firstNumber, secondNumber, displayValue, operator);
 }
 
 function clear(e){
@@ -75,7 +74,6 @@ function clear(e){
     firstNumber = null;
     secondNumber = null;
     operator = null;
-    operatorFlag = false;
     updateDisplay(e);
 }
 
@@ -121,14 +119,14 @@ operatorButtons.forEach((button) => {
         }
         displayValue = '';
         operator = e.target.value;
-        console.log(firstNumber, secondNumber, displayValue);
+        console.log(firstNumber, secondNumber, displayValue, operator);
     });
 });
 
 numberButtons.forEach((button) => {
     button.addEventListener('click', (e) => { 
         updateDisplay(e);
-        console.log(firstNumber, secondNumber, displayValue);
+        console.log(firstNumber, secondNumber, displayValue, operator);
     }); 
 });
 
