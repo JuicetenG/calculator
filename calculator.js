@@ -55,10 +55,6 @@ function updateDisplay(e){
 } 
 
 function updateDisplayTop(e) {
-    if(displayValueTop.charAt(displayValueTop.length - 1) === '/') return;
-    if(displayValueTop.charAt(displayValueTop.length - 1) === '*') return;
-    if(displayValueTop.charAt(displayValueTop.length - 1) === '-') return;
-    if(displayValueTop.charAt(displayValueTop.length - 1) === '+') return;
     displayValueTop += e.target.value;
     displayValue = '';
     displayResult();
@@ -78,7 +74,7 @@ function back(){
     }
     
     displayValue = displayValue.toString().slice(0, -1);
-    displayValueTop = displayValueTop.toString().slice(0, -1);
+    displayValueTop = displayValueTop.slice(0, -1);
     setNumbers();
     displayResult();
     console.log(firstNumber, secondNumber, displayValue);
@@ -91,7 +87,6 @@ function clear(){
     secondNumber = null;
     operator = null;
     displayResult();
-    displayBottomResult();
 }
 
 function callOperate(){
@@ -111,17 +106,13 @@ function callOperate(){
     operator = null;
     setNumbers();
     displayResult();
-    displayBottomResult();
 }
 
 function displayResult(){
-    //displayBottom.textContent = displayValue;
+    displayBottom.textContent = displayValue;
     displayTop.textContent = displayValueTop;
 }
 
-function displayBottomResult() {
-    displayBottom.textContent = displayValue;
-}
 function displayResultTop(){
     displayTop.textContent = displayValueTop;
 }
@@ -139,9 +130,6 @@ backButton.addEventListener('click', () => {
 equalsButton.addEventListener('click', () => {
     if(secondNumber !== null){
         callOperate();
-        displayValueTop = displayValue;
-        displayBottom.textContent = '';
-        displayResultTop();
     }
     console.log(firstNumber, secondNumber, displayValue);
 });
