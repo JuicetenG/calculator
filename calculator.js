@@ -38,6 +38,10 @@ function operate(a, b, operator){
             return multiply(a, b);
             break;
         case '/':
+            if(b === 0){
+                display.textContent = 'nah bruv';
+                return;
+            }
             return divide(a, b);
             break;
     }
@@ -69,21 +73,22 @@ function back(){
     console.log(firstNumber, secondNumber, displayValue, operator);
 }
 
-function clear(e){
+function clear(){
     displayValue = '';
     firstNumber = null;
     secondNumber = null;
     operator = null;
-    updateDisplay(e);
+    displayResult();
 }
 
 function callOperate(){
     if((firstNumber || secondNumber || operator) === null) return;
+    if(display.textContent === 'nah bruv') return;
     
     displayValue = operate(firstNumber, secondNumber, operator);
     
     if(displayValue.toString().includes('.')){
-        displayValue = displayValue.toFixed(2);
+         displayValue = displayValue.toFixed(2);
     }
 
     firstNumber = displayValue;
@@ -97,18 +102,20 @@ function displayResult(){
     display.textContent = displayValue;
 }
 
-clearButton.addEventListener('click', (e) => {
-    clear(e);
+clearButton.addEventListener('click', () => {
+    clear();
 });
 
 backButton.addEventListener('click', () => {
+    if(display.textContent === 'nah bruv' || displayValue.toString() === 'NaN') clear();
     back();
 })
 
 equalsButton.addEventListener('click', () => {
     if(secondNumber !== null){
         callOperate();
-    }
+    } 
+    
     console.log(firstNumber, secondNumber, displayValue);
 });
 
@@ -125,7 +132,9 @@ operatorButtons.forEach((button) => {
 
 numberButtons.forEach((button) => {
     button.addEventListener('click', (e) => { 
+        if(display.textContent === 'nah bruv' || displayValue.toString() === 'NaN') clear();
         updateDisplay(e);
+
         console.log(firstNumber, secondNumber, displayValue, operator);
     }); 
 });
