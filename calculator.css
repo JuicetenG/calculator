@@ -5,7 +5,7 @@ body {
     justify-content: center;
     font-family: 'VT323';
     background-image: url(images/super-mario-land.jpg);
-    background-size: contain;
+    background-size: cover;
     opacity: 95%;
 }
 

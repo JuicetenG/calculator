@@ -49,7 +49,6 @@ function operate(a, b, operator){
 
 function updateDisplay(e){
     if(e.target.value === '.' && displayValue.includes('.')) return;
-
     displayValue += e.target.value;
     setNumbers();
     displayResult();
@@ -63,14 +62,10 @@ function setNumbers(){
 }
 
 function back(){
-    if(operator !== null && secondNumber === null){
-        return;
-    }
-    
+    if(operator !== null && secondNumber === null) return;
     displayValue = displayValue.toString().slice(0, -1);
     setNumbers();
     displayResult();
-    console.log(firstNumber, secondNumber, displayValue, operator);
 }
 
 function clear(){
@@ -81,15 +76,16 @@ function clear(){
     displayResult();
 }
 
+function clearErrors(){
+    if(display.textContent === 'nah bruv' || displayValue.toString() === 'NaN') clear();
+}
+
 function callOperate(){
     if((firstNumber || secondNumber || operator) === null) return;
     if(display.textContent === 'nah bruv') return;
     
     displayValue = operate(firstNumber, secondNumber, operator);
-    
-    if(displayValue.toString().includes('.')){
-         displayValue = displayValue.toFixed(2);
-    }
+    if(displayValue.toString().includes('.')) displayValue = displayValue.toFixed(2);
 
     firstNumber = displayValue;
     secondNumber = null;
@@ -107,35 +103,26 @@ clearButton.addEventListener('click', () => {
 });
 
 backButton.addEventListener('click', () => {
-    if(display.textContent === 'nah bruv' || displayValue.toString() === 'NaN') clear();
+    clearErrors();
     back();
 })
 
 equalsButton.addEventListener('click', () => {
-    if(secondNumber !== null){
-        callOperate();
-    } 
-    
-    console.log(firstNumber, secondNumber, displayValue);
+    if(secondNumber !== null) callOperate();
 });
 
 operatorButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
-        if(secondNumber !== null){
-            callOperate();
-        }
+        if(secondNumber !== null) callOperate();
         displayValue = '';
         operator = e.target.value;
-        console.log(firstNumber, secondNumber, displayValue, operator);
     });
 });
 
 numberButtons.forEach((button) => {
     button.addEventListener('click', (e) => { 
-        if(display.textContent === 'nah bruv' || displayValue.toString() === 'NaN') clear();
+        clearErrors();
         updateDisplay(e);
-
-        console.log(firstNumber, secondNumber, displayValue, operator);
     }); 
 });
 
