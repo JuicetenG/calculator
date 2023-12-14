@@ -58,7 +58,25 @@ function setNumbers(){
     if(operator === null){
         firstNumber = Number(displayValue);
     }
-    else secondNumber = Number(displayValue);
+     else secondNumber = Number(displayValue);
+}
+
+function displayResult(){
+    display.textContent = displayValue;
+}
+
+function callOperate(){
+    if((firstNumber || secondNumber || operator) === null) return;
+    
+    displayValue = operate(firstNumber, secondNumber, operator);
+    if(displayValue === undefined) return;
+    if(displayValue.toString().includes('.')) displayValue = displayValue.toFixed(2);
+   
+    firstNumber = displayValue;
+    secondNumber = null;
+    operator = null;
+    setNumbers();
+    displayResult();
 }
 
 function back(){
@@ -80,32 +98,16 @@ function clearErrors(){
     if(display.textContent === 'nah bruv' || displayValue.toString() === 'NaN') clear();
 }
 
-function callOperate(){
-    if((firstNumber || secondNumber || operator) === null) return;
-    if(display.textContent === 'nah bruv') return;
-    
-    displayValue = operate(firstNumber, secondNumber, operator);
-    if(displayValue.toString().includes('.')) displayValue = displayValue.toFixed(2);
-
-    firstNumber = displayValue;
-    secondNumber = null;
-    operator = null;
-    setNumbers();
-    displayResult();
-}
-
-function displayResult(){
-    display.textContent = displayValue;
-}
-
-clearButton.addEventListener('click', () => {
-    clear();
-});
 
 backButton.addEventListener('click', () => {
     clearErrors();
     back();
-})
+});
+
+
+clearButton.addEventListener('click', () => {
+    clear();
+});
 
 equalsButton.addEventListener('click', () => {
     if(secondNumber !== null) callOperate();
@@ -114,8 +116,9 @@ equalsButton.addEventListener('click', () => {
 operatorButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
         if(secondNumber !== null) callOperate();
+        clearErrors();
         displayValue = '';
-        operator = e.target.value;
+        if(firstNumber !== null) operator = e.target.value;
     });
 });
 
